@@ -167,3 +167,32 @@ export async function signAsset(asset: DigitalAsset, expiresIn = 300): Promise<s
   if (!signed) throw new Error("STORAGE_SIGN_URL_MISSING");
   return String(signed).startsWith("http") ? String(signed) : url + "/storage/v1" + signed;
 }
+
+
+export interface DigitalContentBlock {
+  id: string;
+  product_slug: string;
+  module_no: number;
+  block_no: number;
+  heading: string;
+  body: string;
+  kind: "lesson" | "framework" | "exercise" | "library" | "checklist";
+}
+
+export async function hasActiveContent(productSlug: string): Promise<boolean> {
+  const rows = await rest<Array<{ id: string }>>(
+    "digital_content_blocks?select=id&active=eq.true&product_slug=eq." +
+      encodeURIComponent(productSlug) +
+      "&limit=1",
+  );
+  return Boolean(rows[0]?.id);
+}
+
+export async function getActiveContent(productSlug: string): Promise<DigitalContentBlock[]> {
+  return rest<DigitalContentBlock[]>(
+    "digital_content_blocks?select=id,product_slug,module_no,block_no,heading,body,kind" +
+      "&active=eq.true&product_slug=eq." +
+      encodeURIComponent(productSlug) +
+      "&order=module_no.asc,block_no.asc",
+  );
+}
