@@ -1,0 +1,21 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+      - run: bun install
+      - run: bun run typecheck
+      - run: bun run build
+        env:
+          NEXT_PUBLIC_SITE_URL: https://digital.novidades.store
+          NEXT_PUBLIC_NOVIDADES_URL: https://novidades.store
+          NEXT_PUBLIC_SUPABASE_URL: https://eivqvrfsreaopzlvhadu.supabase.co
