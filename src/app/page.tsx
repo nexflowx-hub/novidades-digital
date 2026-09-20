@@ -33,7 +33,7 @@ export default function HomePage() {
               ))}
             </div>
             <div className="mt-8 grid grid-cols-3 gap-3">
-              {[["300", "Hook structures"], ["36", "Prompts"], ["8", "Arquivos"]].map(([value, label]) => (
+              {[["300", "Hook structures"], ["36", "Prompts"], ["8", "Componentes"]].map(([value, label]) => (
                 <div key={label} className="rounded-2xl bg-black/20 p-4">
                   <strong className="block text-2xl font-black">{value}</strong>
                   <span className="mt-1 block text-[11px] text-slate-400">{label}</span>
