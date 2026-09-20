@@ -16,6 +16,7 @@ export function AccessPanel({
   const [claim, setClaim] = useState(initialClaim || "");
   const [state, setState] = useState<"checking" | "pending" | "ready" | "preparing" | "error">("checking");
   const [files, setFiles] = useState<FileItem[]>([]);
+  const [onlineUrl, setOnlineUrl] = useState("");
   const [message, setMessage] = useState("");
 
   useEffect(() => {
@@ -65,11 +66,12 @@ export function AccessPanel({
 
         if (data.paid && !data.deliveryReady) {
           setState("preparing");
-          setMessage("Pagamento confirmado. O pacote de download está em preparação.");
+          setMessage("Pagamento confirmado. O conteúdo desta release está em preparação.");
           return;
         }
 
         setFiles(data.files || []);
+        setOnlineUrl(data.onlineUrl || "");
         setState("ready");
       } catch {
         if (!cancelled) {
@@ -128,6 +130,15 @@ export function AccessPanel({
           Os links expiram em poucos minutos e podem ser regenerados recarregando esta página.
         </p>
         <div className="mt-4 grid gap-2">
+          {onlineUrl ? (
+            <a
+              href={onlineUrl}
+              className="flex items-center justify-between gap-3 rounded-xl border border-cyan-300 bg-cyan-50 px-4 py-3 text-sm font-black text-cyan-950"
+            >
+              <span>Abrir conteúdo online</span>
+              <ShieldCheck className="h-4 w-4 shrink-0 text-cyan-700" />
+            </a>
+          ) : null}
           {files.map((file) => (
             <a
               key={file.id}
