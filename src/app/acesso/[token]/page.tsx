@@ -29,6 +29,13 @@ export default async function AccessPage({params}:{params:Promise<{token:string}
       <h1 className="mt-5 text-4xl font-black tracking-[-.04em]">{product.title}</h1>
       <p className="mt-3 text-slate-400">Licenciado para {entitlement.customer_email}</p>
       <div className="mt-8 grid gap-3">
+        <a href={"/conteudo/"+token+"/"+product.slug} className="card flex items-center justify-between gap-4 p-5">
+          <div>
+            <p className="font-bold">Abrir conteúdo online</p>
+            <p className="mt-1 text-sm text-slate-400">Leia a release protegida diretamente na Novidades Digital.</p>
+          </div>
+          <span className="pill">Abrir</span>
+        </a>
         {(assets||[]).map((asset)=>(
           <a key={asset.id} href={"/api/download/"+token+"/"+asset.id} className="card flex items-center justify-between gap-4 p-5">
             <div>
