@@ -12,7 +12,7 @@ Aplicação de produtos digitais do ecossistema **Novidades.store**.
 
 **Conversion Content OS — R$97, pagamento único**
 
-Pacote:
+Pacote — 8 componentes digitais:
 1. Conversion Content OS — Guide
 2. Conversion Workbook
 3. Hook Library — 300 estruturas
