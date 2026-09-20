@@ -20,12 +20,19 @@ export function CheckoutButton({ productId }: { productId: string }) {
       const response = await fetch("/api/checkout", {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ productId, email })
+        body: JSON.stringify({ productId, email }),
       });
       const data = await response.json();
 
       if (!response.ok || !data.checkoutUrl) {
         throw new Error(data.message || "Checkout indisponível.");
+      }
+
+      if (data.reference && data.claim) {
+        localStorage.setItem(
+          "nv:digital:last-access",
+          JSON.stringify({ reference: data.reference, claim: data.claim }),
+        );
       }
 
       window.location.assign(data.checkoutUrl);
