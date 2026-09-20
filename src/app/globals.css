@@ -1,0 +1,12 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #f4f7f8;
+  --ink: #07111f;
+  --cyan: #22d3ee;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--bg); color: var(--ink); }
+::selection { background: rgba(34, 211, 238, .28); }
