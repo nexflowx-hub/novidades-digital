@@ -42,7 +42,7 @@ export const PRODUCTS: DigitalProduct[] = [
     shortTitle: "FinanceOS MEI",
     priceCents: 4700,
     currency: "BRL",
-    status: "ready",
+    status: "planned",
     hero: "Controle financeiro e monitor gerencial para MEI.",
     description: "Estrutura operacional para receitas, despesas, margem, compromissos, precificação e monitor de teto configurável.",
     deliverables: [
