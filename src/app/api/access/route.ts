@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 import {
   getActiveAssets,
   getCheckoutIntent,
+  hasActiveContent,
   hasActiveEntitlement,
   signAsset,
 } from "@/lib/commerce-admin";
@@ -41,6 +42,7 @@ export async function GET(request: NextRequest) {
     }
 
     const assets = await getActiveAssets(intent.product_sku);
+    const onlineReady = await hasActiveContent(intent.product_slug);
     const files = await Promise.all(
       assets.map(async (asset) => ({
         id: asset.id,
@@ -54,7 +56,11 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({
       paid: true,
       status: "succeeded",
-      deliveryReady: files.length > 0,
+      deliveryReady: files.length > 0 || onlineReady,
+      onlineReady,
+      onlineUrl: onlineReady
+        ? "/conteudo?reference=" + encodeURIComponent(reference) + "&claim=" + encodeURIComponent(claim)
+        : null,
       files,
     });
   } catch (error) {
